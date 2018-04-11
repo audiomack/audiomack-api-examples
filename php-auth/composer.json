@@ -1,0 +1,5 @@
+{
+    "require": {
+        "pear/http_oauth": "^0.3.2"
+    }
+}
