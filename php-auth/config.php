@@ -1,7 +1,7 @@
 <?php
 
-$apiUrl         = 'https://www.audiomack.com/v1';
-$authorizeUrl   = 'https://react.audiomack.com/oauth/authenticate';
+$apiUrl         = 'https://api.audiomack.com/v1';
+$authorizeUrl   = 'https://audiomack.com/oauth/authenticate';
 $consumerKey    = 'consumerKey';
 $consumerSecret = 'consumerSecret';
 
