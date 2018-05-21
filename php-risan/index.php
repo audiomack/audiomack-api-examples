@@ -10,10 +10,10 @@ $audiomackApiBase = 'https://api.audiomack.com/v1';
 
 // Create an instance of Risan\OAuth1\OAuth1 class.
 $oauth1 = Risan\OAuth1\OAuth1Factory::create([
-    'client_credentials_identifier' => 'YOUR_AUDIOMACK_API_KEY',
-    'client_credentials_secret'     => 'YOUR_AUDIOMACK_API_SECRET',
+    'client_credentials_identifier' => 'YOUR_AUDIOMACK_KEY',
+    'client_credentials_secret'     => 'YOUR_AUDIOMACK_SECRET',
     'temporary_credentials_uri'     => $audiomackApiBase . '/request_token',
-    'authorization_uri'             => 'https://audiomack.test/oauth/authenticate',
+    'authorization_uri'             => 'https://www.audiomack.com/oauth/authenticate',
     'token_credentials_uri'         => $audiomackApiBase . '/access_token',
     'callback_uri'                  => 'http://localhost:3030/index.php',
 ]);
