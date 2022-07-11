@@ -1,5 +1,6 @@
 {
     "require": {
+        "guzzlehttp/guzzle": "~6.5",
         "risan/oauth1": "^2.0"
     }
 }
