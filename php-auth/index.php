@@ -3,13 +3,11 @@
 require_once 'vendor/autoload.php';
 require_once 'config.php';
 
-$callback = 'http://localhost:3030/callback.php';
-
 $error        = '';
 $errorContent = '';
 $success      = false;
 
-if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+if ($_SERVER['REQUEST_METHOD'] === 'POST' || isset($_GET['popup'])) {
     $httpRequest = new HTTP_Request2(null, null, array('ssl_verify_peer' => false));
     $consumer = new HTTP_OAuth_Consumer($consumerKey, $consumerSecret);
     $consumer->accept($httpRequest);
