@@ -1,4 +1,4 @@
-<html>
+<!DOCTYPE html>
 <head>
     <title>Audiomack Third Party Auth Example Application</title>
     <style>
@@ -13,6 +13,64 @@
             background-color: orange;
         }
     </style>
+    <script type="text/javascript">
+        const handleAuth = () => {
+            return new Promise((resolve) => {
+              /**
+               * Set up message listener before opening the window
+               * to handle the OAuth response
+               */
+              const handleMessage = (event) => {
+                if (
+                  [
+                    "https://audiomack.com",
+                    "https://am-next.aws.audiomack.com",
+                  ].includes(event.origin) === false
+                )
+                  return;
+
+                if (event.data.type === "OAUTH_SUCCESS") {
+                  /**
+                   * Remove the message listener once the OAuth is successful
+                   */
+                  window.removeEventListener("message", handleMessage);
+                  console.log(event.data.redirectUrl);
+                  resolve(event.data.redirectUrl);
+                }
+              };
+
+              window.addEventListener("message", handleMessage);
+
+              const authWindow = window.open(
+                "index.php?popup=true",
+                "Login with Audiomack",
+                "width=600,height=800",
+              );
+
+              // Handle if user closes the window without completing auth
+              const checkClosed = setInterval(() => {
+                if (authWindow?.closed) {
+                  clearInterval(checkClosed);
+                  window.removeEventListener("message", handleMessage);
+                  resolve(null); // Resolve with null if the window is closed
+                }
+              }, 1000);
+            });
+          };
+
+          const handleClick = async () => {
+            try {
+              const redirectUrl = await handleAuth();
+              if (redirectUrl) {
+                window.location.href = redirectUrl;
+              } else {
+                console.log("Authentication was cancelled or failed");
+              }
+            } catch (error) {
+              console.error("Authentication error:", error);
+            }
+          };
+    </script>
 </head>
 <body>
 <h1>Audiomack Third Party Auth Example Application</h1>
@@ -27,15 +85,8 @@
 <h2>Pop-up Flow</h2>
     <button id="popup">Login with Audiomack</button>
     <script type="text/javascript">
-        const authWindow = () => {
-            window.open(
-                'index.php?popup=true',
-                'Login with Audiomack',
-                'width=600,height=800'
-                );
-        }
         const el = document.getElementById('popup');
-        el.addEventListener('click', authWindow, false);
+        el.addEventListener('click', handleClick, false);
     </script>
 <hr>
 <?php endif; ?>
