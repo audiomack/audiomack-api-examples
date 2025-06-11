@@ -24,7 +24,6 @@
                 if (
                   [
                     "https://audiomack.com",
-                    "https://am-next.aws.audiomack.com",
                   ].includes(event.origin) === false
                 )
                   return;
