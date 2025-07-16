@@ -109,7 +109,7 @@ def buildImage(ecrRepositoryName) {
         def dateFormat = new SimpleDateFormat("yyyy-MM-dd_HH_mm_ss")
         def date = new Date()
         def buildDate = (dateFormat.format(date)) 
- sh(" cd php-auth && sudo docker build  --label org.label-schema.build-date=${buildDate} --label org.label-schema.vendor=Audiomack --label org.label-schema.name=${ecrRepositoryName} --label org.label-schema.version=${imageVersion} --label org.label-schema.vcs-ref=${gitHash} -t ${ecrRepositoryName}:${imageVersion} --no-cache --pull --progress=plain -f php-auth/Dockerfile .")
+ sh(" cd php-auth && sudo docker build  --label org.label-schema.build-date=${buildDate} --label org.label-schema.vendor=Audiomack --label org.label-schema.name=${ecrRepositoryName} --label org.label-schema.version=${imageVersion} --label org.label-schema.vcs-ref=${gitHash} -t ${ecrRepositoryName}:${imageVersion} --no-cache --pull --progress=plain  .")
 }
 
 
