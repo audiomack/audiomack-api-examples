@@ -1,0 +1,17 @@
+version: '3.8'
+
+services:
+  app:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    ports:
+      - "3030:80"
+    volumes:
+      - .:/var/www/html
+    environment:
+      - APACHE_DOCUMENT_ROOT=/var/www/html
+    command: >
+      bash -c "composer update &&
+               echo 'set_include_path(get_include_path() . PATH_SEPARATOR . __DIR__ .\"/vendor/pear/http_request2\");' >> config.php &&
+               apache2-ctl -D FOREGROUND" 
