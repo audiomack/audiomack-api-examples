@@ -19,7 +19,6 @@ properties(
                 [$class: 'RebuildSettings', autoRebuild: false, rebuildDisabled: false],
     ]),
                 pipelineTriggers([])
-        ]
 )
 
 // GIT
