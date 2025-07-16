@@ -109,12 +109,9 @@ def buildImage(ecrRepositoryName) {
         def dateFormat = new SimpleDateFormat("yyyy-MM-dd_HH_mm_ss")
         def date = new Date()
         def buildDate = (dateFormat.format(date)) 
- sh("sudo docker build  --label org.label-schema.build-date=${buildDate} --label org.label-schema.vendor=Audiomack --label org.label-schema.name=${ecrRepositoryName} --label org.label-schema.version=${imageVersion} --label org.label-schema.vcs-ref=${gitHash} -t ${ecrRepositoryName}:${imageVersion} --no-cache --pull --progress=plain .")
+ sh("sudo docker build  --label org.label-schema.build-date=${buildDate} --label org.label-schema.vendor=Audiomack --label org.label-schema.name=${ecrRepositoryName} --label org.label-schema.version=${imageVersion} --label org.label-schema.vcs-ref=${gitHash} -t ${ecrRepositoryName}:${imageVersion} --no-cache --pull --progress=plain -f php-auth/Dockerfile .")
 }
 
-def lintDocker(ecrRepositoryName) {
-    this.runDocker('run --rm -i hadolint/hadolint < services/${ecrRepositoryName}/Dockerfile', true)
-}
 
 def createRepo(ecrRepositoryName) {
     sh("export ANSIBLE_FORCE_COLOR=true && ansible-playbook -i deployments/shared-resources/ansible/hosts  deployments/shared-resources/ansible/create_repo.yml -e \"repository_name=${ecrRepositoryName}\"")
