@@ -1,5 +1,5 @@
 # Use PHP 8.2
-FROM php:7.4-cli
+FROM php:8.2-cli
 
 # Install system dependencies
 RUN apt-get update && apt-get install -y \
@@ -16,6 +16,11 @@ RUN apt-get clean && rm -rf /var/lib/apt/lists/*
 
 # Install PHP extensions
 RUN docker-php-ext-install pdo_mysql mbstring exif pcntl bcmath gd
+
+# pear/http_oauth predates PHP 8 and emits deprecation notices; keep them out of
+# the response body (they break the OAuth redirect) and send errors to the logs
+RUN printf 'error_reporting = E_ALL & ~E_DEPRECATED\ndisplay_errors = Off\nlog_errors = On\n' \
+    > /usr/local/etc/php/conf.d/errors.ini
 
 # Get latest Composer
 COPY --from=composer:latest /usr/bin/composer /usr/bin/composer
