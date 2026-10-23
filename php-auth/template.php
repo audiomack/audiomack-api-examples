@@ -93,7 +93,7 @@
 <h2>Error</h2>
 <p>The following error message was returned: <?php echo htmlspecialchars($error) ?></p>
     <?php if ($errorContent): ?>
-    <p>The following JSON structure was retured from the API <?= $apiUrl ?>:</p>
+    <p>The following JSON structure was returned from the API <?= $apiUrl ?>:</p>
     <pre>
         <?php echo htmlspecialchars($errorContent) ?>
     </pre>
